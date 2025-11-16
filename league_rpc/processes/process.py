@@ -38,7 +38,7 @@ def check_league_client_process(cli_args: Namespace, logger: RichLogger) -> None
     """
     Checks league client processes.
     """
-    league_processes: list[str] = ["LeagueClient.exe", "LeagueClientUx.exe"]
+    league_processes: list[str] = ["LeagueClient", "RiotClientServices", "Riot Client"]
 
     logger.info("Checking if LeagueClient.exe is running...", color="yellow")
     time.sleep(1)
@@ -235,8 +235,8 @@ def player_state() -> str | None:
     """
     current_state: str | None = None
 
-    if processes_exists(process_names=["LeagueClient.exe", "LeagueClientUx.exe"]):
-        if process_exists(process_name="League of Legends.exe"):
+    if processes_exists(process_names=["LeagueClient", "RiotClientServices", "Riot Client"]):
+        if process_exists(process_name="League of Legends"):
             current_state = "InGame"
         else:
             current_state = "InLobby"

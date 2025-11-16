@@ -91,7 +91,7 @@ async def disconnect(_: Connection) -> None:
     logger = module_data.logger
     logger.info("Disconnected from the League Client API.", color="red")
 
-    league_processes: list[str] = ["LeagueClient.exe", "LeagueClientUx.exe"]
+    league_processes: list[str] = ["LeagueClient", "RiotClientServices", "Riot Client"]
 
     logger.info(
         "Will attemt to reconnect in 5 seconds, if the client is still running."

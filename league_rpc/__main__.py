@@ -1,3 +1,6 @@
+import nest_asyncio
+nest_asyncio.apply()
+
 import argparse
 import sys
 import threading
