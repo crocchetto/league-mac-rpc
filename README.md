@@ -36,7 +36,7 @@ Got questions already? Don't hesitate to join the [Community Server of Its-Haze]
 ## Installation
 
 >  [!IMPORTANT]
-> This port is going to install **Homebrew**, the correct **Python version (3.11)** to run this program, create a **virtual environment** and install **all the dependencies** on your Mac. If you want to uninstall everything check the [uninstall](#uninstall) topic.
+> This port is going to install **Homebrew**, the correct **Python version (3.11)** to run this program, create a **virtual environment** and install **all the dependencies** on your Mac. If you want to uninstall everything check the [uninstall](#%EF%B8%8F-uninstall) topic.
 
   
 
