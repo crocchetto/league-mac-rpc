@@ -14,7 +14,7 @@ Got questions? Don't hesitate to join the [Community Server of Its-Haze](https:/
 
 - [Showcase](#showcase)
 
-- [Command Line Arguments](#command-line-arguments)
+- [Tips](#-tips)
 
 - [FAQ](#faq)
 
@@ -95,7 +95,9 @@ Use this if you prefer running from source, want to see the code, or if the App 
 
 ## Configuration
 
-You can customize the Rich Presence (e.g., disable KDA stats, hide rank, change Client ID) by editing the **`config.json`** file.
+You can customize the Rich Presence just by editing the **`config.json`** file.
+
+You can find it:
 
 * **For App Users:**
     1.  Right-click `LeagueRPC.app`.
@@ -105,6 +107,42 @@ You can customize the Rich Presence (e.g., disable KDA stats, hide rank, change 
 
 * **For Installer Users:**
     1.  Simply edit the `config.json` file located in the main folder.
+
+**✨ = Enabled by default**
+
+### `"launch_league": "default"` ✨
+LeagueRPC automatically finds and launches League for you (`/Applications/League of Legends.app`).
+If your game is installed elsewhere, replace `"default` with the path to your game.
+
+### `"client_id": "default"` ✨
+Want to show a different game name on Discord? Create an app at the [Discord Developer Portal](https://discord.com/developers/applications) and use its Application ID replacing the `"default"` with Another Application ID.
+
+Fun options:
+- **League of Kittens**: `1230607224296968303`
+- **League of Linux**: `1185274747836174377`
+
+### `"no_stats": false`
+Replace `false` with `true` to hide your KDA and CS from Discord.
+
+### `"no_rank": false`
+Replace `false` with `true` to hide your rank, LP, and emblem from Discord.
+
+### `"hide_emojis": false`
+Replace `false` with `true` to remove the 🟢/🔴 emojis next to your Online/Away status.
+
+![Online](images/in_client_online_status.png) ![Away](images/in_client_away_status.png)
+
+### `"hide_in_client": false`
+Replace `false` with `true` to hide your Rich Presence when you're just sitting in the client. It'll show up again when you queue, enter champ select, or start a game.
+
+### `"add_process": []`
+Using a Discord alternative or modified client? Add its process name between the brachets (e.g. `"add_process": ["Discord2"]`).
+
+### `"wait_for_league": -1`
+How long to wait for League to start before giving up
+
+### `"wait_for_discord": -1`
+How long to wait for Discord to start
 
 ---
 
@@ -207,38 +245,6 @@ Example on Discord:
 Showcase your favorite TFT Companion!
 
 ![tft-companion-1](images/tft_companion_showcase_1.png)  ![tft-companion-2](images/tft_companion_showcase_2.png)
-
----
-
-## Command Line Arguments
-
-> [!NOTE]
->  It is highly recommended to use **`config.json`** to change these settings instead of command line arguments.
-
-However, if you are using the **Installer Method** and want to use arguments manually, you can also edit the `StartLoL_RPC.command` file.
-
-**✨ = Enabled by default**
-
-### `--launch-league <location>` ✨
-LeagueRPC automatically finds and launches League for you (`/Applications/League of Legends.app`).
-If your game is installed elsewhere, put the path in `config.json`.
-
-### `--client-id <discord-app-id>` ✨
-Want to show a different game name on Discord? Create an app at the [Discord Developer Portal](https://discord.com/developers/applications) and use its Application ID.
-
-### `--no-stats`
-Hides your KDA and CS from Discord.
-
-### `--no-rank`
-Hides your rank, LP, and emblem from Discord.
-
-### `--hide-emojis`
-Removes the 🟢/🔴 emojis next to your Online/Away status.
-
-![Online](images/in_client_online_status.png) ![Away](images/in_client_away_status.png)
-
-### `--hide-in-client`
-Hides your Rich Presence when you're just sitting in the client. It'll show up again when you queue, enter champ select, or start a game.
 
 ---
 
