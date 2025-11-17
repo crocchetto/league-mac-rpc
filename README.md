@@ -372,9 +372,16 @@ pip install -r requirements.txt
 pip install pyinstaller
 ```
 
-Build the App: Use the included `.spec` file to build the app with the correct settings and icon.
+Build the App:
 ```bash
-pyinstaller --noconfirm --clean LeagueRPC.spec
+pyinstaller --noconfirm --onedir --windowed --clean \
+ --name "LeagueRPC" \
+ --add-data "league_rpc:league_rpc" \
+ --add-data "config.json:." \
+ --hidden-import "pypresence" \
+ --hidden-import "lcu_driver" \
+ --icon="icon.icns" \
+ league_rpc/__main__.py
 ```
 
 ---
