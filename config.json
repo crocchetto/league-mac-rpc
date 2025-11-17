@@ -1,0 +1,10 @@
+{
+    "launch_league": "default",
+    "client_id": "default",
+    "no_stats": false,
+    "no_rank": false,
+    "hide_emojis": false,
+    "hide_in_client": false,
+    "wait_for_league": -1,
+    "wait_for_discord": -1
+}

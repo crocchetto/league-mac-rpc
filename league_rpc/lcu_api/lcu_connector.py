@@ -91,6 +91,7 @@ async def disconnect(_: Connection) -> None:
     logger = module_data.logger
     logger.info("Disconnected from the League Client API.", color="red")
 
+    # macOS specific process names
     league_processes: list[str] = ["LeagueClient", "RiotClientServices", "Riot Client"]
 
     logger.info(
@@ -317,3 +318,4 @@ def start_connector(
     module_data.cli_args = cli_args
     module_data.logger = logger
     module_data.connector.start()
+    

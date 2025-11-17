@@ -1,10 +1,10 @@
 import os
-import platform  # Importato qui
+import platform
 import subprocess
 from argparse import Namespace
 from typing import LiteralString
 
-from league_rpc.logger.richlogger import RichLogger  # Importato qui
+from league_rpc.logger.richlogger import RichLogger
 from league_rpc.utils.const import (
     COMMON_DRIVES,
     DEFAULT_LEAGUE_CLIENT_EXE_PATH,
@@ -14,9 +14,9 @@ from league_rpc.utils.const import (
 
 def find_default_path() -> str | LiteralString:
     """Find the default path of the League Client executable."""
-    # This function is for Windows, but we keep it
-    # because its return value is used as the default
-    # for the --launch-league argument.
+    # This function is originally for Windows logic.
+    # We keep it because it sets the default value for argparse,
+    # allowing us to detect if the user changed the path or not.
 
     # Check each drive for the executable
     for drive in COMMON_DRIVES:
@@ -27,11 +27,15 @@ def find_default_path() -> str | LiteralString:
     return os.path.join("C:", DEFAULT_LEAGUE_CLIENT_EXE_PATH)
 
 
-def launch_league_client(cli_args: Namespace) -> None:
-    """Launch the League Client with the given path or the default path."""
+def launch_league_client(cli_args: Namespace, logger: RichLogger) -> None:
+    """
+    Launch the League Client with the given path or the default path.
     
-    logger = RichLogger()
-
+    Args:
+        cli_args: Command line arguments (contains launch_league path).
+        logger: The existing logger instance (passed to avoid print conflicts).
+    """
+    
     # Platform check to ensure this only runs on macOS
     if platform.system() != "Darwin":
         logger.error(
@@ -39,8 +43,7 @@ def launch_league_client(cli_args: Namespace) -> None:
         )
         return
 
-    # This is the default Windows path, used as the default
-    # value for the --launch-league argument.
+    # This is the default Windows path (e.g. C:\Riot Games...)
     default_win_path = find_default_path()
     
     # Standard League of Legends path on macOS
@@ -49,18 +52,19 @@ def launch_league_client(cli_args: Namespace) -> None:
     path_to_use = ""
 
     # Check if the user provided a custom path.
-    # If the argument still has the Windows default path, it means the user provided nothing.
-    if cli_args.launch_league == default_win_path:
+    # If the argument matches the Windows default OR the word "default" (from config.json)
+    # then use the Mac standard path.
+    if cli_args.launch_league == default_win_path or cli_args.launch_league == "default":
         # User did not provide a custom path, use the Mac default.
         path_to_use = default_mac_path
     else:
-        # User provided a custom path
+        # User provided a custom path (e.g., "/My/Path/League.app")
         path_to_use = cli_args.launch_league
 
-    logger.info(f"Attempting to launch League at: {path_to_use}")
+    logger.info(f"Attempting to launch League at: {path_to_use}", color="green")
 
     try:
-        # Opening League of Legends.app
+        # The 'open' command is the macOS equivalent of a double-click on the App
         subprocess.run(
             ["open", path_to_use],
             check=True,
@@ -70,8 +74,8 @@ def launch_league_client(cli_args: Namespace) -> None:
         logger.error(
             f"Could not find League of Legends at: {path_to_use}", color="red"
         )
-        logger.info("If your game is in a custom location, make sure to specify the full path:")
-        logger.info("--launch-league \"/Full/Path/To/League of Legends.app\"")
+        logger.info("If your game is in a custom location, please update config.json.")
+        logger.info('Example: "launch_league": "/Volumes/GameDrive/League of Legends.app"')
     # Other error
     except Exception as e:
         logger.error(f"Failed to launch League of Legends: {e}", color="red")

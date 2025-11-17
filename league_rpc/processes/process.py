@@ -38,16 +38,19 @@ def check_league_client_process(cli_args: Namespace, logger: RichLogger) -> None
     """
     Checks league client processes.
     """
+    # macOS process names (no .exe extension)
     league_processes: list[str] = ["LeagueClient", "RiotClientServices", "Riot Client"]
 
-    logger.info("Checking if LeagueClient.exe is running...", color="yellow")
+    logger.info("Checking if League Client is running...", 
+    color="yellow")
     time.sleep(1)
     logger.update_progress_bar(advance=40)
 
     if cli_args.launch_league:
-        # launch league if it's not already running.
+        # Launch League if it's not already running.
         if not processes_exists(league_processes):
-            launch_league_client(cli_args)
+            # We pass the 'logger' to prevent print conflicts in the terminal
+            launch_league_client(cli_args, logger)
 
         time.sleep(0.5)
         logger.info("League Client has been launched!")
@@ -235,9 +238,12 @@ def player_state() -> str | None:
     """
     current_state: str | None = None
 
+    # Check for macOS specific process names
     if processes_exists(process_names=["LeagueClient", "RiotClientServices", "Riot Client"]):
+        # 'League of Legends' is the game process on macOS (not .exe)
         if process_exists(process_name="League of Legends"):
             current_state = "InGame"
         else:
             current_state = "InLobby"
     return current_state
+    

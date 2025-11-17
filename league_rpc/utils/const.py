@@ -9,7 +9,7 @@ DISCORD_PROCESS_NAMES: list[str] = [
     "electron",
 ]
 LEAGUE_OF_LEGENDS_LOGO = "https://github.com/Its-Haze/league-rpc/blob/master/assets/leagueoflegends.png?raw=true"
-SMALL_TEXT = f"its-haze/league-rpc @Github.com ({__version__})"
+SMALL_TEXT = f"crocchetto/league-mac-rpc @Github.com ({__version__})"
 
 ALL_GAME_DATA_URL = "https://127.0.0.1:2999/liveclientdata/allgamedata"
 
